@@ -1,0 +1,46 @@
+Aalizador Lexico
+separemos
+
+CARACTERES ESPECIALES: salto, tabulacion, espacio, /, *, ", y el punto
+se deben separar los conjuntos para poner cada caracter especial como conjunto
+
+PROCEDIMIENTO:
+al automata que se tiene, se le va agregar a los estados finales salidas al estado inicial con: espacio/tabulacion/salto de linea
+a cada estado se le va agregar salida al estado error (excepto los comentarios)
+
+UNA VEZ DEFINIDAS LAS TRANCICIONES
+estadoACtual = 0;
+estadoAnterior = 0;
+//hacer la transicion 
+if(estadoActual == inicial){
+	if(estadoActual != estadoAnterior){ // si venía de otra parte o si estaba ahí mismo
+	// si venía de otra parte, guardar el automata (pero sin el espacio)
+	}else {
+	 // si el estado es el inicial; no hacer nada porque puede haber recursion en espacio/salto/tabulacion
+	}
+}else if(estado error ){
+	// gurdar error y reiniciar el automata 
+}
+
+
+cada vez que reiniciemos el automata el estado anterior es nullo o cero la cosa es que identifique
+vayamos recorriendo todo, pero cuando nos encontremos con que el estadoactual es el inicial
+y cuando sea "error" entonces se guarda  y se reinicia el automata aja
+
+así lo que hacemos es recorrer extrtamente con reglas
+si son espacio/tabluaciones/saltos de linea estos vuelven a el estado inicial
+
+estadoACtual = 0;
+estadoAnterior = 0;
+//hacer la transicion 
+if(estadoActual == inicial){
+	if(estadoActual != estadoAnterior){ // si venía de otra parte o si estaba ahí mismo
+	// si venía de otra parte, guardar el automata (pero sin el espacio)
+	}else {
+	 // si el estado es el inicial; no hacer nada porque puede haber recursion en espacio/salto/tabulacion
+	}
+}
+
+
+AHORA TOCA AGREGAR SALIDAS CON SALTO/TABULACION/ESPACIO     Y AGREGAR LOS ERRORES
+Y DELIMINTAR BIEN ASÍ COMO ESTA EN LA HOJA DE EXCEL    SE SEPARAN : / *  " 
