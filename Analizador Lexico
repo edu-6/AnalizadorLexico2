@@ -22,6 +22,8 @@ if(estadoActual == inicial){
 	// gurdar error y reiniciar el automata 
 }
 
+tamnbien se debe verificar si el estado es final y es el fin del documento porque ahí puede quedarse algunos porque estamos obligando a que regrese con el espacio
+
 
 cada vez que reiniciemos el automata el estado anterior es nullo o cero la cosa es que identifique
 vayamos recorriendo todo, pero cuando nos encontremos con que el estadoactual es el inicial
@@ -44,3 +46,8 @@ if(estadoActual == inicial){
 
 AHORA TOCA AGREGAR SALIDAS CON SALTO/TABULACION/ESPACIO     Y AGREGAR LOS ERRORES
 Y DELIMINTAR BIEN ASÍ COMO ESTA EN LA HOJA DE EXCEL    SE SEPARAN : / *  " 
+
+
+
+
+

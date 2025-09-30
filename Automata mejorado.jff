@@ -84,8 +84,10 @@
 		<!--The list of transitions.-->
 		<transition>
 			<from>0</from>
-			<to>4</to>
-			<read>[Aa-Zz]</read>
+			<to>11</to>
+			<controlx>97</controlx>
+			<controly>460</controly>
+			<read>/</read>
 		</transition>
 		<transition>
 			<from>1</from>
@@ -103,41 +105,11 @@
 			<read>[0-9]</read>
 		</transition>
 		<transition>
-			<from>9</from>
-			<to>10</to>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>12</from>
-			<to>13</to>
-			<read> </read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>2</to>
-			<read>.</read>
-		</transition>
-		<transition>
 			<from>0</from>
-			<to>7</to>
-			<controlx>139</controlx>
-			<controly>387</controly>
-			<read>[ ] ( ) { }</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>8</to>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>14</from>
-			<to>15</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read>[0-9]</read>
+			<to>5</to>
+			<controlx>352</controlx>
+			<controly>299</controly>
+			<read>. , ; :</read>
 		</transition>
 		<transition>
 			<from>15</from>
@@ -145,11 +117,50 @@
 			<read> </read>
 		</transition>
 		<transition>
+			<from>11</from>
+			<to>14</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>15</from>
+			<to>16</to>
+			<read>/</read>
+		</transition>
+		<transition>
+			<from>12</from>
+			<to>13</to>
+			<read> </read>
+		</transition>
+		<transition>
+			<from>8</from>
+			<to>9</to>
+			<controlx>303</controlx>
+			<controly>605</controly>
+			<read>  </read>
+		</transition>
+		<transition>
+			<from>14</from>
+			<to>15</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>8</from>
+			<to>10</to>
+			<controlx>386</controlx>
+			<controly>899</controly>
+			<read>"</read>
+		</transition>
+		<transition>
+			<from>9</from>
+			<to>10</to>
+			<read>"</read>
+		</transition>
+		<transition>
 			<from>0</from>
-			<to>5</to>
-			<controlx>352</controlx>
-			<controly>299</controly>
-			<read>. , ; :</read>
+			<to>6</to>
+			<controlx>270</controlx>
+			<controly>362</controly>
+			<read> + - *  %  = </read>
 		</transition>
 		<transition>
 			<from>9</from>
@@ -167,21 +178,21 @@
 			<read> </read>
 		</transition>
 		<transition>
-			<from>8</from>
-			<to>9</to>
-			<read>  </read>
-		</transition>
-		<transition>
 			<from>4</from>
 			<to>4</to>
 			<read>[Aa-Zz]</read>
 		</transition>
 		<transition>
 			<from>0</from>
-			<to>6</to>
-			<controlx>270</controlx>
-			<controly>362</controly>
-			<read> + - *  %  = </read>
+			<to>7</to>
+			<controlx>139</controlx>
+			<controly>387</controly>
+			<read>[ ] ( ) { }</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>[0-9]</read>
 		</transition>
 		<transition>
 			<from>15</from>
@@ -189,16 +200,19 @@
 			<read>*</read>
 		</transition>
 		<transition>
-			<from>2</from>
-			<to>3</to>
-			<read>[0-9]</read>
+			<from>0</from>
+			<to>4</to>
+			<read>[Aa-Zz]</read>
 		</transition>
 		<transition>
 			<from>0</from>
-			<to>11</to>
-			<controlx>97</controlx>
-			<controly>460</controly>
-			<read>/</read>
+			<to>8</to>
+			<read>"</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>.</read>
 		</transition>
 		<transition>
 			<from>11</from>
@@ -206,14 +220,9 @@
 			<read>/</read>
 		</transition>
 		<transition>
-			<from>15</from>
-			<to>16</to>
-			<read>/</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>14</to>
-			<read>*</read>
+			<from>2</from>
+			<to>3</to>
+			<read>[0-9]</read>
 		</transition>
 		<note>
 			<text> [ ] ( ) { }
@@ -224,8 +233,8 @@
 ESPACIO
 SALTO DE LINEA
 TABULACION</text>
-			<x>238.0</x>
-			<y>487.0</y>
+			<x>221.0</x>
+			<y>454.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
@@ -236,8 +245,8 @@ TABULACION</text>
 ESPACIO
 SALTO DE LINEA
 TABULACION</text>
-			<x>418.0</x>
-			<y>479.0</y>
+			<x>411.0</x>
+			<y>437.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
