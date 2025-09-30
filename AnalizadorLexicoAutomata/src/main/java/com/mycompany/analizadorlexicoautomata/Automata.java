@@ -17,11 +17,13 @@ public class Automata {
     private static final int SALTO_LINEA = 11;
     private static final int DESCONOCIDO = 12;
     
-    // ESTADO ERROR 
+    private ReconocedorDeCaracter reconocedorChar = new ReconocedorDeCaracter();
+    // ESTADO ERROR
     private static final int ERROR = -1;
            
     // x = estados y = simbolos
     private int[][] transiciones = new int[16][12];
+    private int estadoInicial = 0;
     private int estadoActual = 0;
     private int estadoAnterior = 0;
     private ArrayList<Token> tokens = new ArrayList<>();
@@ -149,6 +151,185 @@ public class Automata {
         transiciones[7][DESCONOCIDO] = ERROR;
         
         //ESTADO 8
+        transiciones[8][DIGITO] = 9;
+        transiciones[8][LETRA] = 9;
+        transiciones[8][PUNTO] = 9;
+        transiciones[8][SIGNO_DIVISION] = 9;
+        transiciones[8][ASTERISCO] = 9;
+        transiciones[8][SIGNO_AGRUPACION] = 9;
+        transiciones[8][OPERADOR] = ERROR;
+        transiciones[8][SIGNO_PUNTUACION] = 9;
+        transiciones[8][COMILLA] = 10;
+        transiciones[8][ESPACIO] = 0;
+        transiciones[8][TABULACION] = 0;
+        transiciones[8][SALTO_LINEA] = 0;
+        transiciones[8][DESCONOCIDO] = ERROR;
+        
+        //ESTADO 9  
+        transiciones[9][DIGITO] = 9;
+        transiciones[9][LETRA] = 9;
+        transiciones[9][PUNTO] = 9;
+        transiciones[9][SIGNO_DIVISION] = 9;
+        transiciones[9][ASTERISCO] = 9;
+        transiciones[9][SIGNO_AGRUPACION] = 9;
+        transiciones[9][OPERADOR] = ERROR;
+        transiciones[9][SIGNO_PUNTUACION] = 9;
+        transiciones[9][COMILLA] = 10;
+        transiciones[9][ESPACIO] = 0;
+        transiciones[9][TABULACION] = 0;
+        transiciones[9][SALTO_LINEA] = 0;
+        transiciones[9][DESCONOCIDO] = ERROR;
+        
+        //ESTADO 10
+        transiciones[10][DIGITO] = ERROR;
+        transiciones[10][LETRA] = ERROR;
+        transiciones[10][PUNTO] = ERROR;
+        transiciones[10][SIGNO_DIVISION] = ERROR;
+        transiciones[10][ASTERISCO] = ERROR;
+        transiciones[10][SIGNO_AGRUPACION] = ERROR;
+        transiciones[10][OPERADOR] = ERROR;
+        transiciones[10][SIGNO_PUNTUACION] = ERROR;
+        transiciones[10][COMILLA] = ERROR;
+        transiciones[10][ESPACIO] = 0;
+        transiciones[10][TABULACION] = 0;
+        transiciones[10][SALTO_LINEA] = 0;
+        transiciones[10][DESCONOCIDO] = ERROR;
+        
+        //ESTADO 11
+        transiciones[11][DIGITO] = ERROR;
+        transiciones[11][LETRA] = ERROR;
+        transiciones[11][PUNTO] = ERROR;
+        transiciones[11][SIGNO_DIVISION] = 12;
+        transiciones[11][ASTERISCO] = 14;
+        transiciones[11][SIGNO_AGRUPACION] = ERROR;
+        transiciones[11][OPERADOR] = ERROR;
+        transiciones[11][SIGNO_PUNTUACION] = ERROR;
+        transiciones[11][COMILLA] = ERROR;
+        transiciones[11][ESPACIO] = ERROR;
+        transiciones[11][TABULACION] = ERROR;
+        transiciones[11][SALTO_LINEA] = ERROR;
+        transiciones[11][DESCONOCIDO] = ERROR;
+        
+        //ESTADO 12
+        transiciones[12][DIGITO] = 13;
+        transiciones[12][LETRA] = 13;
+        transiciones[12][PUNTO] = 13;
+        transiciones[12][SIGNO_DIVISION] = 13;
+        transiciones[12][ASTERISCO] = 13;
+        transiciones[12][SIGNO_AGRUPACION] = 13;
+        transiciones[12][OPERADOR] = 13;
+        transiciones[12][SIGNO_PUNTUACION] = 13;
+        transiciones[12][COMILLA] = 13;
+        transiciones[12][ESPACIO] = 13;
+        transiciones[12][TABULACION] = 13;
+        transiciones[12][SALTO_LINEA] = 0;
+        transiciones[12][DESCONOCIDO] = 13;
+        
+        //ESTADO 13
+        transiciones[13][DIGITO] = 13;
+        transiciones[13][LETRA] = 13;
+        transiciones[13][PUNTO] = 13;
+        transiciones[13][SIGNO_DIVISION] = 13;
+        transiciones[13][ASTERISCO] = 13;
+        transiciones[13][SIGNO_AGRUPACION] = 13;
+        transiciones[13][OPERADOR] = 13;
+        transiciones[13][SIGNO_PUNTUACION] = 13;
+        transiciones[13][COMILLA] = 13;
+        transiciones[13][ESPACIO] = 13;
+        transiciones[13][TABULACION] = 13;
+        transiciones[13][SALTO_LINEA] = 0;
+        transiciones[13][DESCONOCIDO] = 13;
+        
+        //ESTADO 14
+        transiciones[14][DIGITO] = 14;
+        transiciones[14][LETRA] = 14;
+        transiciones[14][PUNTO] = 14;
+        transiciones[14][SIGNO_DIVISION] = 14;
+        transiciones[14][ASTERISCO] = 15;
+        transiciones[14][SIGNO_AGRUPACION] = 14;
+        transiciones[14][OPERADOR] = 14;
+        transiciones[14][SIGNO_PUNTUACION] = 14;
+        transiciones[14][COMILLA] = 14;
+        transiciones[14][ESPACIO] = 14;
+        transiciones[14][TABULACION] = 14;
+        transiciones[14][SALTO_LINEA] = 14;
+        transiciones[14][DESCONOCIDO] = 14;
+        
+        //ESTADO 15
+        transiciones[15][DIGITO] = 14;
+        transiciones[15][LETRA] = 14;
+        transiciones[15][PUNTO] = 14;
+        transiciones[15][SIGNO_DIVISION] = 16;
+        transiciones[15][ASTERISCO] = 15;
+        transiciones[15][SIGNO_AGRUPACION] = 14;
+        transiciones[15][OPERADOR] = 14;
+        transiciones[15][SIGNO_PUNTUACION] = 14;
+        transiciones[15][COMILLA] = 14;
+        transiciones[15][ESPACIO] = 14;
+        transiciones[15][TABULACION] = 14;
+        transiciones[15][SALTO_LINEA] = 14;
+        transiciones[15][DESCONOCIDO] = 14;
+        
+        // ESTADO 16
+        transiciones[16][DIGITO] = ERROR;
+        transiciones[16][LETRA] = ERROR;
+        transiciones[16][PUNTO] = ERROR;
+        transiciones[16][SIGNO_DIVISION] = ERROR;
+        transiciones[16][ASTERISCO] = ERROR;
+        transiciones[16][SIGNO_AGRUPACION] = ERROR;
+        transiciones[16][OPERADOR] = ERROR;
+        transiciones[16][SIGNO_PUNTUACION] = ERROR;
+        transiciones[16][COMILLA] = ERROR;
+        transiciones[16][ESPACIO] = 0;
+        transiciones[16][TABULACION] = 0;
+        transiciones[16][SALTO_LINEA] = 0;
+        transiciones[16][DESCONOCIDO] = ERROR;
+        
+    }
+
+    public void Analizar2(String texto) {
+        int linea = 0;
+        int columna = 0;
+        String lexema = "";
+        for (int i = 0; i < texto.length(); i++) {
+            char c = texto.charAt(i);
+            int tipo = reconocedorChar.getTipoCaracter(c);
+            if (tipo == SALTO_LINEA) {
+                linea++;
+                columna = 0;
+            }else{
+                columna++;
+            }
+            estadoAnterior = estadoActual; // guardar estado anterior
+            estadoActual = transiciones[estadoActual][tipo];  // moverse con el estado
+            
+            if(estadoActual == ERROR){
+                // sumar caracter
+                // GUARDAR EL ERROR
+                // REINICIAR EL AUTOMATA
+            }
+            
+            //GUARDAR EL lexema O NO 
+            if (estadoActual == estadoInicial) { // si volvió o está en el estado inicial
+                if (estadoAnterior == estadoInicial) { // si dió vueltas sobre si mismo
+                    // no guardar nada
+                } else {
+                    // si venía de otro estado (quiere decir que era final)
+                    //guardar el lexema (menos el ultimo caracter de salida)
+                }
+            } else {
+                // esta en estados medios
+                // sumar caracter
+            }
+            
+            // PARA UN  ULTIMO SI QUEDA SIN GUARDAR PORQUE NO LLEGÓ AL INICIO 
+            // (PUEDE SER FINAL, PUEDO NO SERLO, O PUEDE ESTAR EN EL ESTADO ERROR)
+            if(i == texto.length()-1){
+                // SI ES FINAL GUARDAR
+                // si no es estado final guardar como error (quedo incompleto)
+            }
+
+        }
     }
 
     public void Analizar(String texto) {

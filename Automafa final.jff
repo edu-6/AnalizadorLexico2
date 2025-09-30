@@ -62,6 +62,7 @@
 		<state id="12" name="q12">
 			<x>1431.0</x>
 			<y>708.0</y>
+			<final/>
 		</state>
 		<state id="13" name="q13">
 			<x>1748.0</x>
@@ -83,33 +84,6 @@
 		</state>
 		<!--The list of transitions.-->
 		<transition>
-			<from>13</from>
-			<to>0</to>
-			<controlx>2133</controlx>
-			<controly>335</controly>
-			<read>SALTO DE LINEA</read>
-		</transition>
-		<transition>
-			<from>15</from>
-			<to>14</to>
-			<read> </read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>[0-9]</read>
-		</transition>
-		<transition>
-			<from>4</from>
-			<to>4</to>
-			<read>[0-9]</read>
-		</transition>
-		<transition>
-			<from>3</from>
-			<to>3</to>
-			<read>[0-9]</read>
-		</transition>
-		<transition>
 			<from>1</from>
 			<to>2</to>
 			<read>.</read>
@@ -120,93 +94,19 @@
 			<read>SALTO ESPACIO TABULACION</read>
 		</transition>
 		<transition>
-			<from>14</from>
-			<to>15</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>9</from>
-			<to>10</to>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>0</to>
-			<read>SALTO ESPACIO TAB</read>
-		</transition>
-		<transition>
-			<from>8</from>
-			<to>9</to>
-			<read>  </read>
-		</transition>
-		<transition>
-			<from>2</from>
+			<from>3</from>
 			<to>3</to>
 			<read>[0-9]</read>
 		</transition>
 		<transition>
-			<from>0</from>
-			<to>11</to>
-			<controlx>963</controlx>
-			<controly>849</controly>
-			<read>/</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>12</to>
-			<read>/</read>
-		</transition>
-		<transition>
-			<from>8</from>
-			<to>10</to>
-			<controlx>832</controlx>
-			<controly>1242</controly>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>5</from>
-			<to>0</to>
-			<read>SALTO ESPACIO TABULACION</read>
-		</transition>
-		<transition>
-			<from>7</from>
-			<to>0</to>
-			<read>SALTO ESPACIO TABULACION</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>14</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>9</from>
-			<to>9</to>
-			<read> </read>
-		</transition>
-		<transition>
-			<from>14</from>
-			<to>14</to>
-			<read> </read>
-		</transition>
-		<transition>
-			<from>13</from>
-			<to>13</to>
-			<read> </read>
-		</transition>
-		<transition>
-			<from>6</from>
-			<to>0</to>
-			<read>SALTO ESPACIO TABULACION</read>
-		</transition>
-		<transition>
 			<from>4</from>
 			<to>4</to>
-			<read>[Aa-Zz]</read>
+			<read>[0-9]</read>
 		</transition>
 		<transition>
-			<from>3</from>
-			<to>0</to>
-			<read>SALTO ESPACIO TAB</read>
+			<from>1</from>
+			<to>1</to>
+			<read>[0-9]</read>
 		</transition>
 		<transition>
 			<from>12</from>
@@ -214,45 +114,26 @@
 			<read> </read>
 		</transition>
 		<transition>
-			<from>15</from>
-			<to>15</to>
-			<read>*</read>
+			<from>11</from>
+			<to>12</to>
+			<read>/</read>
 		</transition>
 		<transition>
-			<from>0</from>
-			<to>5</to>
-			<controlx>1053</controlx>
-			<controly>529</controly>
-			<read>. , ; :</read>
-		</transition>
-		<transition>
-			<from>10</from>
+			<from>6</from>
 			<to>0</to>
-			<controlx>340</controlx>
-			<controly>1529</controly>
-			<read>ESAPCIO SALTO TAB</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read>[0-9]</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>8</to>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>4</from>
-			<to>0</to>
-			<controlx>1053</controlx>
-			<controly>490</controly>
 			<read>SALTO ESPACIO TABULACION</read>
 		</transition>
 		<transition>
-			<from>15</from>
-			<to>16</to>
-			<read>/</read>
+			<from>3</from>
+			<to>0</to>
+			<read>SALTO ESPACIO TAB</read>
+		</transition>
+		<transition>
+			<from>8</from>
+			<to>10</to>
+			<controlx>832</controlx>
+			<controly>1242</controly>
+			<read>"</read>
 		</transition>
 		<transition>
 			<from>0</from>
@@ -269,11 +150,102 @@
 			<read>ESPACIO SALTO TAB</read>
 		</transition>
 		<transition>
+			<from>13</from>
+			<to>0</to>
+			<controlx>2133</controlx>
+			<controly>335</controly>
+			<read>SALTO DE LINEA</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>5</to>
+			<controlx>1053</controlx>
+			<controly>529</controly>
+			<read>. , ; :</read>
+		</transition>
+		<transition>
 			<from>0</from>
 			<to>6</to>
 			<controlx>1189</controlx>
 			<controly>762</controly>
 			<read> + - *  %  = </read>
+		</transition>
+		<transition>
+			<from>9</from>
+			<to>9</to>
+			<read> </read>
+		</transition>
+		<transition>
+			<from>14</from>
+			<to>14</to>
+			<read> </read>
+		</transition>
+		<transition>
+			<from>13</from>
+			<to>13</to>
+			<read> </read>
+		</transition>
+		<transition>
+			<from>11</from>
+			<to>0</to>
+			<read>SALTO ESPACIO TAB</read>
+		</transition>
+		<transition>
+			<from>15</from>
+			<to>14</to>
+			<read> </read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>4</to>
+			<read>[Aa-Zz]</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>8</to>
+			<read>"</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>0</to>
+			<controlx>1053</controlx>
+			<controly>490</controly>
+			<read>SALTO ESPACIO TABULACION</read>
+		</transition>
+		<transition>
+			<from>8</from>
+			<to>9</to>
+			<read>  </read>
+		</transition>
+		<transition>
+			<from>7</from>
+			<to>0</to>
+			<read>SALTO ESPACIO TABULACION</read>
+		</transition>
+		<transition>
+			<from>14</from>
+			<to>15</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>0</to>
+			<read>SALTO ESPACIO TABULACION</read>
+		</transition>
+		<transition>
+			<from>15</from>
+			<to>15</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>[0-9]</read>
+		</transition>
+		<transition>
+			<from>15</from>
+			<to>16</to>
+			<read>/</read>
 		</transition>
 		<transition>
 			<from>0</from>
@@ -282,6 +254,42 @@
 			<controly>429</controly>
 			<read>[Aa-Zz]</read>
 		</transition>
+		<transition>
+			<from>9</from>
+			<to>10</to>
+			<read>"</read>
+		</transition>
+		<transition>
+			<from>11</from>
+			<to>14</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>10</from>
+			<to>0</to>
+			<controlx>340</controlx>
+			<controly>1529</controly>
+			<read>ESAPCIO SALTO TAB</read>
+		</transition>
+		<transition>
+			<from>12</from>
+			<to>0</to>
+			<controlx>1318</controlx>
+			<controly>824</controly>
+			<read>SALTO DE LINEA</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>3</to>
+			<read>[0-9]</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>11</to>
+			<controlx>963</controlx>
+			<controly>849</controly>
+			<read>/</read>
+		</transition>
 		<note>
 			<text> [ ] ( ) { }
 + - * / % =
@@ -291,8 +299,8 @@
 ESPACIO
 SALTO DE LINEA
 TABULACION</text>
-			<x>767.0</x>
-			<y>980.0</y>
+			<x>886.0</x>
+			<y>1131.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
@@ -303,8 +311,8 @@ TABULACION</text>
 ESPACIO
 SALTO DE LINEA
 TABULACION</text>
-			<x>942.0</x>
-			<y>961.0</y>
+			<x>1088.0</x>
+			<y>1110.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
@@ -314,8 +322,8 @@ TABULACION</text>
 . , : ;
 ESPACIO
 TABULACION</text>
-			<x>1773.0</x>
-			<y>672.0</y>
+			<x>1802.0</x>
+			<y>693.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
@@ -326,7 +334,7 @@ TABULACION</text>
 ESPACIO
 TABULACION</text>
 			<x>1977.0</x>
-			<y>639.0</y>
+			<y>652.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
@@ -337,8 +345,8 @@ TABULACION</text>
 ESPACIO
 SALTO DE LINEA
 TABULACION</text>
-			<x>1812.0</x>
-			<y>1136.0</y>
+			<x>2092.0</x>
+			<y>1312.0</y>
 		</note>
 		<note>
 			<text> [ ] ( ) { }
@@ -349,8 +357,8 @@ TABULACION</text>
 ESPACIO
 SALTO DE LINEA
 TABULACION</text>
-			<x>1659.0</x>
-			<y>891.0</y>
+			<x>1915.0</x>
+			<y>1029.0</y>
 		</note>
 	</automaton>
 </structure>
