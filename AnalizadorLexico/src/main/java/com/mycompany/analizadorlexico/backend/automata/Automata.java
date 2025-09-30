@@ -1,8 +1,9 @@
-package com.mycompany.analizadorlexicoautomata;
+package com.mycompany.analizadorlexico.backend.automata;
 
 import java.util.ArrayList;
 
 public class Automata {
+
     private static final int DIGITO = 0;
     private static final int LETRA = 1;
     private static final int PUNTO = 2;
@@ -16,21 +17,21 @@ public class Automata {
     private static final int TABULACION = 10;
     private static final int SALTO_LINEA = 11;
     private static final int DESCONOCIDO = 12;
-    
+
     private ReconocedorDeCaracter reconocedorChar = new ReconocedorDeCaracter();
     // ESTADO ERROR
     private static final int ERROR = -1;
-           
+
     // x = estados y = simbolos
-    private int[][] transiciones = new int[16][12];
+    private int[][] transiciones = new int[17][13];
     private int estadoInicial = 0;
     private int estadoActual = 0;
     private int estadoAnterior = 0;
     private ArrayList<Token> tokens = new ArrayList<>();
-    private String[] palabrasReservadas = { "int" };
-    // private int[] estadosAceptacion = {1,3,4};
+    private String[] palabrasReservadas = {"int"};
 
-    
+    private int fila = 0;
+    private int columna = 0;
     public Automata() {
         // ESTADO 0
         transiciones[0][DIGITO] = 1;
@@ -46,7 +47,7 @@ public class Automata {
         transiciones[0][TABULACION] = 0;
         transiciones[0][SALTO_LINEA] = 0;
         transiciones[0][DESCONOCIDO] = ERROR;
-        
+
         // ESTADO 1
         transiciones[1][DIGITO] = 1;
         transiciones[1][LETRA] = ERROR;
@@ -57,11 +58,11 @@ public class Automata {
         transiciones[1][OPERADOR] = ERROR;
         transiciones[1][SIGNO_PUNTUACION] = ERROR;
         transiciones[1][COMILLA] = ERROR;
-        transiciones[1][ESPACIO] = ERROR;
-        transiciones[1][TABULACION] = ERROR;
-        transiciones[1][SALTO_LINEA] = ERROR;
+        transiciones[1][ESPACIO] = 0;
+        transiciones[1][TABULACION] = 0;
+        transiciones[1][SALTO_LINEA] = 0;
         transiciones[1][DESCONOCIDO] = ERROR;
-        
+
         // ESTADO 2
         transiciones[2][DIGITO] = 3;
         transiciones[2][LETRA] = ERROR;
@@ -76,7 +77,7 @@ public class Automata {
         transiciones[2][TABULACION] = ERROR;
         transiciones[2][SALTO_LINEA] = ERROR;
         transiciones[2][DESCONOCIDO] = ERROR;
-        
+
         // ESTADO 3
         transiciones[3][DIGITO] = 3;
         transiciones[3][LETRA] = ERROR;
@@ -119,7 +120,7 @@ public class Automata {
         transiciones[5][TABULACION] = 0;
         transiciones[5][SALTO_LINEA] = 0;
         transiciones[5][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 6
         transiciones[6][DIGITO] = ERROR;
         transiciones[6][LETRA] = ERROR;
@@ -134,7 +135,7 @@ public class Automata {
         transiciones[6][TABULACION] = 0;
         transiciones[6][SALTO_LINEA] = 0;
         transiciones[6][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 7
         transiciones[7][DIGITO] = ERROR;
         transiciones[7][LETRA] = ERROR;
@@ -149,7 +150,7 @@ public class Automata {
         transiciones[7][TABULACION] = 0;
         transiciones[7][SALTO_LINEA] = 0;
         transiciones[7][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 8
         transiciones[8][DIGITO] = 9;
         transiciones[8][LETRA] = 9;
@@ -160,11 +161,11 @@ public class Automata {
         transiciones[8][OPERADOR] = ERROR;
         transiciones[8][SIGNO_PUNTUACION] = 9;
         transiciones[8][COMILLA] = 10;
-        transiciones[8][ESPACIO] = 0;
-        transiciones[8][TABULACION] = 0;
-        transiciones[8][SALTO_LINEA] = 0;
+        transiciones[8][ESPACIO] = 9;
+        transiciones[8][TABULACION] = 9;
+        transiciones[8][SALTO_LINEA] = 9;
         transiciones[8][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 9  
         transiciones[9][DIGITO] = 9;
         transiciones[9][LETRA] = 9;
@@ -175,11 +176,11 @@ public class Automata {
         transiciones[9][OPERADOR] = ERROR;
         transiciones[9][SIGNO_PUNTUACION] = 9;
         transiciones[9][COMILLA] = 10;
-        transiciones[9][ESPACIO] = 0;
-        transiciones[9][TABULACION] = 0;
-        transiciones[9][SALTO_LINEA] = 0;
+        transiciones[9][ESPACIO] = 9;
+        transiciones[9][TABULACION] = 9;
+        transiciones[9][SALTO_LINEA] = 9;
         transiciones[9][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 10
         transiciones[10][DIGITO] = ERROR;
         transiciones[10][LETRA] = ERROR;
@@ -194,7 +195,7 @@ public class Automata {
         transiciones[10][TABULACION] = 0;
         transiciones[10][SALTO_LINEA] = 0;
         transiciones[10][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 11
         transiciones[11][DIGITO] = ERROR;
         transiciones[11][LETRA] = ERROR;
@@ -205,11 +206,11 @@ public class Automata {
         transiciones[11][OPERADOR] = ERROR;
         transiciones[11][SIGNO_PUNTUACION] = ERROR;
         transiciones[11][COMILLA] = ERROR;
-        transiciones[11][ESPACIO] = ERROR;
-        transiciones[11][TABULACION] = ERROR;
-        transiciones[11][SALTO_LINEA] = ERROR;
+        transiciones[11][ESPACIO] = 0;
+        transiciones[11][TABULACION] = 0;
+        transiciones[11][SALTO_LINEA] = 0;
         transiciones[11][DESCONOCIDO] = ERROR;
-        
+
         //ESTADO 12
         transiciones[12][DIGITO] = 13;
         transiciones[12][LETRA] = 13;
@@ -224,7 +225,7 @@ public class Automata {
         transiciones[12][TABULACION] = 13;
         transiciones[12][SALTO_LINEA] = 0;
         transiciones[12][DESCONOCIDO] = 13;
-        
+
         //ESTADO 13
         transiciones[13][DIGITO] = 13;
         transiciones[13][LETRA] = 13;
@@ -239,7 +240,7 @@ public class Automata {
         transiciones[13][TABULACION] = 13;
         transiciones[13][SALTO_LINEA] = 0;
         transiciones[13][DESCONOCIDO] = 13;
-        
+
         //ESTADO 14
         transiciones[14][DIGITO] = 14;
         transiciones[14][LETRA] = 14;
@@ -254,7 +255,7 @@ public class Automata {
         transiciones[14][TABULACION] = 14;
         transiciones[14][SALTO_LINEA] = 14;
         transiciones[14][DESCONOCIDO] = 14;
-        
+
         //ESTADO 15
         transiciones[15][DIGITO] = 14;
         transiciones[15][LETRA] = 14;
@@ -269,7 +270,7 @@ public class Automata {
         transiciones[15][TABULACION] = 14;
         transiciones[15][SALTO_LINEA] = 14;
         transiciones[15][DESCONOCIDO] = 14;
-        
+
         // ESTADO 16
         transiciones[16][DIGITO] = ERROR;
         transiciones[16][LETRA] = ERROR;
@@ -284,101 +285,81 @@ public class Automata {
         transiciones[16][TABULACION] = 0;
         transiciones[16][SALTO_LINEA] = 0;
         transiciones[16][DESCONOCIDO] = ERROR;
-        
+
     }
 
-    public void Analizar2(String texto) {
-        int linea = 0;
-        int columna = 0;
+    public ArrayList<Token> Analizar2(String texto) {
+        tokens = new ArrayList<>();
+        fila = 1;
+        columna = 1;
+        int filaAnterior = 1;
+        int columnaAnterior = 1;
         String lexema = "";
         for (int i = 0; i < texto.length(); i++) {
             char c = texto.charAt(i);
             int tipo = reconocedorChar.getTipoCaracter(c);
             if (tipo == SALTO_LINEA) {
-                linea++;
-                columna = 0;
-            }else{
+                filaAnterior = fila;
+                columnaAnterior = columna;
+                fila++;
+                columna = 1;
+               // System.out.println("");
+                //System.out.println("Nueva linea, columna ++"+ "Fila: "+ fila+" columna : "+ columna);
+            } else {
                 columna++;
+                //System.out.println("sumo columna");
+               // System.out.println( "Fila: "+ fila+" columna : "+ columna);
             }
             estadoAnterior = estadoActual; // guardar estado anterior
             estadoActual = transiciones[estadoActual][tipo];  // moverse con el estado
-            
-            if(estadoActual == ERROR){
-                // sumar caracter
-                // GUARDAR EL ERROR
-                // REINICIAR EL AUTOMATA
+
+            if (estadoActual == ERROR) {
+                System.out.println("ERROR");
+                lexema += c;// sumar caracter
+                guardarToken(lexema, estadoActual,i,fila, columna);// GUARDAR EL ERROR
+                lexema = "";// REINICIAR EL LEXEMA
             }
-            
-            //GUARDAR EL lexema O NO 
+
+            //GUARDAR EL lexema O NO
             if (estadoActual == estadoInicial) { // si volvió o está en el estado inicial
                 if (estadoAnterior == estadoInicial) { // si dió vueltas sobre si mismo
-                    // no guardar nada
+                    lexema = "";// no guardar nada
                 } else {
-                    // si venía de otro estado (quiere decir que era final)
-                    //guardar el lexema (menos el ultimo caracter de salida)
+                    // no se suma el ultimo caracter // si venía de otro estado (quiere decir que era final)
+                    guardarToken(lexema, estadoAnterior,i-1, filaAnterior, columnaAnterior);//guardar el lexema (menos el ultimo caracter de salida)
+                    lexema = "";
                 }
             } else {
-                // esta en estados medios
-                // sumar caracter
+                describirMovimiento(c); // esta en estados medios
+                lexema += c;// sumar caracter
             }
-            
+
             // PARA UN  ULTIMO SI QUEDA SIN GUARDAR PORQUE NO LLEGÓ AL INICIO 
-            // (PUEDE SER FINAL, PUEDO NO SERLO, O PUEDE ESTAR EN EL ESTADO ERROR)
-            if(i == texto.length()-1){
-                // SI ES FINAL GUARDAR
+            // (PUEDE SER FINAL, PUEDO NO SERLO)
+            if (i == texto.length() - 1) {
+                guardarToken(lexema, estadoActual,i,fila, columna);// SI ES FINAL GUARDAR
                 // si no es estado final guardar como error (quedo incompleto)
             }
-
         }
-    }
-
-    public void Analizar(String texto) {
-        String lexema = "";
-        for (int i = 0; i < texto.length(); i++) {
-            char c = texto.charAt(i);
-            int tipo = getTipoCaracter(c);
-            if (tipo != 3) {
-                lexema = lexema + c;
-            }
-            if (tipo == 3) {
-                System.out.println("ES UN ESPACIO HAY QUE REINICIAR EL AUTOMATA");
-                reiniciarAutomata(lexema);
-                lexema = "";
-            } else if (tipo == -1) {
-                System.out.println("ERROR EL CARACTER NO ESTA EN EL ALFABETO");
-                estadoActual = -1;
-                reiniciarAutomata(lexema);
-                lexema = "";
-            } else {
-
-                estadoAnterior = estadoActual;
-                estadoActual = transiciones[estadoActual][tipo];
-                if (estadoActual == -1) {
-                    System.out.println("ERROR");
-                    reiniciarAutomata(lexema);
-                    lexema = "";
-                } else {
-                    System.out.println(
-                            "me movi del estado: " + estadoAnterior + " al estado: " + estadoActual + " con un: "
-                                    + c);
-                }
-
-            }
-        }
-        reiniciarAutomata(lexema);
         ImprimirTokens();
-        tokens = new ArrayList<>();
+        return tokens;
     }
 
-    public void reiniciarAutomata(String lexema) {
+    private void describirMovimiento(char c) {
+        System.out.println(
+                "me movi del estado: " + estadoAnterior + " al estado: " + estadoActual + " con un: "
+                + c);
+    }
+
+    private void guardarToken(String lexema, int estado, int indiceActual,int fila, int columna) {
         System.out.println("LEXEMA: " + lexema);
         if (!lexema.equals("")) {
-            Token nuevoToken = new Token(lexema, getTipoToken(estadoActual, lexema));
+            int indiceInicio = indiceActual - (lexema.length() -1);
+            Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna - (lexema.length()-1),indiceInicio,indiceActual);
             tokens.add(nuevoToken);
             estadoActual = 0;
             estadoAnterior = 0;
         }
-
     }
 
     public void ImprimirTokens() {
@@ -398,6 +379,22 @@ public class Automata {
                 return verificarPalabraReservada(lexema);
             case -1:
                 return TipoToken.ERROR;
+            case 5:
+                return TipoToken.PUNTUACION;
+            case 6:
+                return TipoToken.OPERADOR;
+            case 7:
+                return TipoToken.AGRUPACION;
+            case 10:
+                return TipoToken.CADENA;
+            case 11:
+                return TipoToken.OPERADOR;
+            case 12:
+                return TipoToken.COMENTARIO_LINEA;
+            case 13:
+                return TipoToken.COMENTARIO_LINEA;
+            case 16:
+                return TipoToken.COMENTARIO_BLOQUE;
             default:
                 break;
         }
@@ -406,28 +403,11 @@ public class Automata {
 
     public TipoToken verificarPalabraReservada(String lexema) {
         for (String tmp : palabrasReservadas) {
-            if (lexema.equals(tmp))
+            if (lexema.equals(tmp)) {
                 return TipoToken.PALABRARESERVADA;
+            }
         }
         return TipoToken.IDENTIFICADOR;
-    }
-
-    // numeros = 0
-    // letras = 1
-    // punto = 2
-    // Espacio = 3
-    public int getTipoCaracter(char tmp) {
-        int valor = -1;
-        if (Character.isDigit(tmp))
-            return 0;
-        if (Character.isLetter(tmp))
-            return 1;
-        if (tmp == '.')
-            return 2;
-        if (Character.isWhitespace(tmp))
-            return 3;
-        return valor;
-
     }
 
 }

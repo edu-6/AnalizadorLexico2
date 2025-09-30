@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.analizadorlexicoautomata;
+package com.mycompany.analizadorlexico.backend.automata;
 
 /**
  *
@@ -28,12 +28,12 @@ public class ReconocedorDeCaracter {
         int valor = DESCONOCIDO;
         if (c == '.')
             return PUNTO;
-        if (Character.isWhitespace(c))
-            return ESPACIO;
         if(c == '\n')
             return SALTO_LINEA;
         if(c == '\t')
             return TABULACION;
+        if (Character.isWhitespace(c))
+            return ESPACIO;
         if(c == '"')
             return COMILLA;
         if(c == '*')
