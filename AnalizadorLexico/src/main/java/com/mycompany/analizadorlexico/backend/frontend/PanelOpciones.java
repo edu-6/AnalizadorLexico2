@@ -28,6 +28,10 @@ public class PanelOpciones extends javax.swing.JPanel {
         this.panelReportes = panelReportes;
         this.buscadorCadenas = new BuscadorCadenas();
     }
+    
+    public void actualizarPosicion(int fila, int columna){
+        this.posicion.setText("POSICION: "+ fila +":" + columna);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +45,7 @@ public class PanelOpciones extends javax.swing.JPanel {
         areaBusquedaText = new javax.swing.JTextField();
         analizarBtn = new javax.swing.JButton();
         limpiarBtn = new javax.swing.JButton();
+        posicion = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 153));
 
@@ -54,6 +59,7 @@ public class PanelOpciones extends javax.swing.JPanel {
             }
         });
 
+        areaBusquedaText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         areaBusquedaText.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         analizarBtn.setBackground(new java.awt.Color(204, 204, 204));
@@ -77,6 +83,12 @@ public class PanelOpciones extends javax.swing.JPanel {
             }
         });
 
+        posicion.setBackground(new java.awt.Color(153, 255, 153));
+        posicion.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        posicion.setForeground(new java.awt.Color(0, 0, 0));
+        posicion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        posicion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,17 +101,21 @@ public class PanelOpciones extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(areaBusquedaText, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(posicion, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(analizarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(areaBusquedaText, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(analizarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limpiarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(posicion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(areaBusquedaText, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(limpiarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -130,5 +146,6 @@ public class PanelOpciones extends javax.swing.JPanel {
     private javax.swing.JTextField areaBusquedaText;
     private javax.swing.JButton buscarBtn;
     private javax.swing.JButton limpiarBtn;
+    private javax.swing.JLabel posicion;
     // End of variables declaration//GEN-END:variables
 }

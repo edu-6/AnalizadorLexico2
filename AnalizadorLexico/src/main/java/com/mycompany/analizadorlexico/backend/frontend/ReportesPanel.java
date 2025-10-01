@@ -6,6 +6,7 @@ package com.mycompany.analizadorlexico.backend.frontend;
 
 import com.mycompany.analizadorlexico.backend.CreadorReportes;
 import com.mycompany.analizadorlexico.backend.automata.Token;
+import com.mycompany.analizadorlexico.backend.automata.TokenRecuento;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -42,12 +43,13 @@ public class ReportesPanel extends javax.swing.JPanel {
 
         if (hayErrores) {
             ArrayList<Token> errores = this.creadorReportes.generarListaErrores(lista);
-            this.tablaErrores = crearTabla(errores, columnas);
+            this.tablaErrores = crearTablaErrores(errores);
             this.jScrollPane1.setViewportView(tablaErrores);
         } else {
 
             botonesActivos = true;
-            this.tablaTokens = crearTabla(creadorReportes.filtrarComentarios(lista), columnas); // se filtran los comentarios
+            this.tablaLexemas = crearTablaLexemas(creadorReportes.generarRecuentoLexemas(creadorReportes.filtrarComentarios(lista)));
+            this.tablaTokens = crearTablaTokens(creadorReportes.filtrarComentarios(lista)); // se filtran los comentarios
             this.jScrollPane1.setViewportView(tablaTokens);
         }
         
@@ -59,10 +61,32 @@ public class ReportesPanel extends javax.swing.JPanel {
         
     }
 
-    private JTable crearTabla(ArrayList<Token> lista, String[] columnas) {
+    private JTable crearTablaTokens(ArrayList<Token> lista) {
+        String[] columnas = {"Tipo", "Lexema", "Fila", "Columna"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
         for (Token t : lista) {
             Object[] fila = {t.getTipoToken(), t.getLexema(), t.getFila(), t.getColumna()};
+            modelo.addRow(fila);
+        }
+        return new JTable(modelo);
+    }
+    
+    private JTable crearTablaLexemas(ArrayList<TokenRecuento> lista) {
+        String[] columnas = { "Lexema","Tipo","Cantidad: "};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        for (TokenRecuento t : lista) {
+            Object[] fila = { t.getLexema(),t.getTipoToken(), t.getCantidad()};
+            modelo.addRow(fila);
+        }
+        return new JTable(modelo);
+    }
+    
+    
+    private JTable crearTablaErrores(ArrayList<Token> lista) {
+        String[] columnas = {"Error", "Fila", "Columna", "Esperado: "};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        for (Token t : lista) {
+            Object[] fila = { t.getLexema(),t.getFila(), t.getColumna(), t.getMensaje()};
             modelo.addRow(fila);
         }
         return new JTable(modelo);
@@ -98,6 +122,11 @@ public class ReportesPanel extends javax.swing.JPanel {
         btnTokens.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
         btnTokens.setText("Tokens");
         btnTokens.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnTokens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTokensActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,8 +168,12 @@ public class ReportesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRecuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuentoActionPerformed
-
+        this.jScrollPane1.setViewportView(tablaLexemas);
     }//GEN-LAST:event_btnRecuentoActionPerformed
+
+    private void btnTokensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTokensActionPerformed
+       this.jScrollPane1.setViewportView(tablaTokens);
+    }//GEN-LAST:event_btnTokensActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

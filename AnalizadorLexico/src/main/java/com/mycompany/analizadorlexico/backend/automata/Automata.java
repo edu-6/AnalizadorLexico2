@@ -353,10 +353,17 @@ public class Automata {
     }
 
     private void guardarToken(String lexema, int estado, int indiceActual,int fila, int columna) {
+        String mensaje = null;
+        if(estadoActual == ERROR){
+                mensaje =getTokenEsperado(estadoAnterior);
+        }else{
+                mensaje =getTokenEsperado(estadoActual);
+        }
+        
         System.out.println("LEXEMA: " + lexema + "Fila: "+ fila +" Columna: "+ columna);
         if (!lexema.equals("")) {
             int indiceInicio = indiceActual - (lexema.length() -1);
-            Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna,indiceInicio,indiceActual);
+            Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna,indiceInicio,indiceActual,mensaje);
             tokens.add(nuevoToken);
             estadoActual = 0;
             estadoAnterior = 0;
@@ -400,6 +407,46 @@ public class Automata {
                 break;
         }
         return TipoToken.ERROR;
+    }
+    
+    private String getTokenEsperado(int estadoAnterior) {
+        switch (estadoAnterior) {
+            case 0:
+                return " algun caracter valido";
+            case 1:
+                return " un numero, punto o caracter de escape";
+            case 2:
+                return " un numero";
+            case 3:
+                return " un numero o caracter de escape";
+            case 4:
+                return " letra, numero , o caracter de escape";
+            case 5:
+                return " caracter de escape";
+            case 6:
+                return " caracter de escape";
+            case 7:
+                return " caracter de escape";
+            case 8:
+                  return "cualquier caracter permitido";
+            case 9:
+                  return "comillas o cualquier caracter permitido";
+            case 10:
+                return " caracter de escape";
+            case 11:
+                return " (/) (*) o caracter de escape";
+            case 12:
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+            case 15:
+                break;
+            case 16:
+                return " caracter de escape";
+        }
+        return "algun caracter valido";
     }
 
     private TipoToken verificarPalabraReservada(String lexema) {

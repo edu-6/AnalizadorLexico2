@@ -10,6 +10,7 @@ import java.awt.Color;
  * @author edu
  */
 public class Token {
+    private String mensaje;
     private boolean yaFueContado = false;
     private TipoToken tipoToken;
     private String lexema;
@@ -18,13 +19,14 @@ public class Token {
     private int indiceInicio;
     private int indiceFin;
     private Color color;
-    public Token(TipoToken tipoToken, String lexema, int fila, int columna, int indiceInicio, int indiceFin) {
+    public Token(TipoToken tipoToken, String lexema, int fila, int columna, int indiceInicio, int indiceFin, String mensaje) {
         this.tipoToken = tipoToken;
         this.lexema = lexema;
         this.fila = fila;
         this.columna = columna;
         this.indiceInicio = indiceInicio;
         this.indiceFin = indiceFin;
+        this.mensaje = mensaje;
         definirColor(tipoToken);
     }
     
@@ -59,6 +61,11 @@ public class Token {
         return indiceFin;
     }
 
+    public String getMensaje() {
+        return mensaje;
+    }
+    
+
     public void setTipoToken(TipoToken tipoToken) {
         this.tipoToken = tipoToken;
     }
@@ -90,6 +97,11 @@ public class Token {
     public void setIndiceFin(int indiceFin) {
         this.indiceFin = indiceFin;
     }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    
     
     private void definirColor(TipoToken tipoToken) {
         switch (tipoToken) {

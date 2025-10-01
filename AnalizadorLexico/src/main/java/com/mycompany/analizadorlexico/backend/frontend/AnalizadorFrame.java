@@ -71,6 +71,10 @@ public class AnalizadorFrame extends javax.swing.JFrame {
         Automata automata = new Automata();
         return automata.Analizar2(this.editorArea.getEditorTextPane().getText());
     }
+    
+    public void actualizarPosicionCursor(int fila, int columna){
+        this.resultadosPanel.getPanelOpciones().actualizarPosicion(fila, columna);
+    }
 
 
     public void volverAlPanelAnalizador() {

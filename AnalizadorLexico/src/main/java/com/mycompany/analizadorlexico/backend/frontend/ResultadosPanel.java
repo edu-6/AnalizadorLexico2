@@ -28,6 +28,10 @@ public class ResultadosPanel extends javax.swing.JPanel {
         this.add(panelReportes, BorderLayout.SOUTH);
         this.analizador = analizador;
     }
+    
+    public PanelOpciones getPanelOpciones(){
+        return panelOpciones;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

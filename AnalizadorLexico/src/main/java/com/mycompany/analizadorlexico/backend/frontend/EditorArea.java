@@ -14,7 +14,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
 
 /**
  *
@@ -59,6 +61,25 @@ public class EditorArea extends javax.swing.JPanel {
 
     private void configurarEventos() {
         Document doc = editorTextPane.getDocument();
+        editorTextPane.addCaretListener(e -> {
+            int posicion = e.getDot();
+            try {
+                // obtener el root del documento (representa las líneas)
+                Element root = editorTextPane.getDocument().getDefaultRootElement();
+
+                // la línea es el índice del hijo que contiene la posición
+                int linea = root.getElementIndex(posicion);
+
+                // columna = posición actual - inicio de la línea
+                int columna = posicion - root.getElement(linea).getStartOffset();
+
+                this.analizadorFrame.actualizarPosicionCursor(linea + 1, columna);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        
         doc.addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
