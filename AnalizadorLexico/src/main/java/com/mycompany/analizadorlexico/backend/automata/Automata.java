@@ -28,8 +28,8 @@ public class Automata {
     private int estadoActual = 0;
     private int estadoAnterior = 0;
     private ArrayList<Token> tokens = new ArrayList<>();
-    private String[] palabrasReservadas = {"int"};
-
+    private String[] palabrasReservadas = {"SI","si", "ENTONCES", "entonces", "PARA", "para", "ESCRIBIR", "escribir"};
+    private int [] estadosIniciales = new int [] {ERROR,1,4,5,6,7,8,11}; // se incluye error
     private int fila = 0;
     private int columna = 0;
     public Automata() {
@@ -291,32 +291,33 @@ public class Automata {
     public ArrayList<Token> Analizar2(String texto) {
         tokens = new ArrayList<>();
         fila = 1;
-        columna = 1;
-        int filaAnterior = 1;
-        int columnaAnterior = 1;
+        columna = 0;
+        int filaGuardada= 1;
+        int columnaGuardada = 0;
         String lexema = "";
         for (int i = 0; i < texto.length(); i++) {
             char c = texto.charAt(i);
             int tipo = reconocedorChar.getTipoCaracter(c);
             if (tipo == SALTO_LINEA) {
-                filaAnterior = fila;
-                columnaAnterior = columna;
                 fila++;
-                columna = 1;
-               // System.out.println("");
-                //System.out.println("Nueva linea, columna ++"+ "Fila: "+ fila+" columna : "+ columna);
+                columna = 0;
             } else {
                 columna++;
-                //System.out.println("sumo columna");
-               // System.out.println( "Fila: "+ fila+" columna : "+ columna);
             }
+            System.out.println("Fila y columna actual : "+ fila +" : "+ columna);
             estadoAnterior = estadoActual; // guardar estado anterior
             estadoActual = transiciones[estadoActual][tipo];  // moverse con el estado
+            
+            if(estadoAnterior == estadoInicial && esEstadoInicial(estadoActual)){ // cuando sea un estado de iniciao y el anterior sea 0
+                filaGuardada = fila;
+                columnaGuardada = columna;
+                System.out.println("Actualización de posicion: "+ "Fila:"+ filaGuardada + " Columna: "+ columnaGuardada);
+            }
 
             if (estadoActual == ERROR) {
                 System.out.println("ERROR");
                 lexema += c;// sumar caracter
-                guardarToken(lexema, estadoActual,i,fila, columna);// GUARDAR EL ERROR
+                guardarToken(lexema, estadoActual,i,filaGuardada,columnaGuardada);// GUARDAR EL ERROR
                 lexema = "";// REINICIAR EL LEXEMA
             }
 
@@ -326,7 +327,7 @@ public class Automata {
                     lexema = "";// no guardar nada
                 } else {
                     // no se suma el ultimo caracter // si venía de otro estado (quiere decir que era final)
-                    guardarToken(lexema, estadoAnterior,i-1, filaAnterior, columnaAnterior);//guardar el lexema (menos el ultimo caracter de salida)
+                    guardarToken(lexema, estadoAnterior,i-1, filaGuardada, columnaGuardada);//guardar el lexema (menos el ultimo caracter de salida)
                     lexema = "";
                 }
             } else {
@@ -337,7 +338,7 @@ public class Automata {
             // PARA UN  ULTIMO SI QUEDA SIN GUARDAR PORQUE NO LLEGÓ AL INICIO 
             // (PUEDE SER FINAL, PUEDO NO SERLO)
             if (i == texto.length() - 1) {
-                guardarToken(lexema, estadoActual,i,fila, columna);// SI ES FINAL GUARDAR
+                guardarToken(lexema, estadoActual,i,filaGuardada, columnaGuardada);// SI ES FINAL GUARDAR
                 // si no es estado final guardar como error (quedo incompleto)
             }
         }
@@ -352,10 +353,10 @@ public class Automata {
     }
 
     private void guardarToken(String lexema, int estado, int indiceActual,int fila, int columna) {
-        System.out.println("LEXEMA: " + lexema);
+        System.out.println("LEXEMA: " + lexema + "Fila: "+ fila +" Columna: "+ columna);
         if (!lexema.equals("")) {
             int indiceInicio = indiceActual - (lexema.length() -1);
-            Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna - (lexema.length()-1),indiceInicio,indiceActual);
+            Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna,indiceInicio,indiceActual);
             tokens.add(nuevoToken);
             estadoActual = 0;
             estadoAnterior = 0;
@@ -401,7 +402,7 @@ public class Automata {
         return TipoToken.ERROR;
     }
 
-    public TipoToken verificarPalabraReservada(String lexema) {
+    private TipoToken verificarPalabraReservada(String lexema) {
         for (String tmp : palabrasReservadas) {
             if (lexema.equals(tmp)) {
                 return TipoToken.PALABRARESERVADA;
@@ -409,5 +410,16 @@ public class Automata {
         }
         return TipoToken.IDENTIFICADOR;
     }
+    
+    private boolean esEstadoInicial(int estadoActual){
+        for (int estado : estadosIniciales) {
+            if(estado == estadoActual){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
 
 }

@@ -4,7 +4,9 @@
  */
 package com.mycompany.analizadorlexico.backend;
 
+import com.mycompany.analizadorlexico.backend.automata.TipoToken;
 import com.mycompany.analizadorlexico.backend.automata.Token;
+import com.mycompany.analizadorlexico.backend.automata.TokenRecuento;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +19,33 @@ public class CreadorReportes {
 
         return null;
     }
+    
+    public ArrayList<TokenRecuento> generarRecuentoLexemas(ArrayList<Token> tokens){
+         ArrayList<TokenRecuento> nueva = new ArrayList();
+         for (Token token : tokens) {
+            if(!token.isYaFueContado()){ // si no ha sido contado
+                int cantidad = contarLexema(token.getLexema(), tokens);
+                nueva.add(new TokenRecuento(token.getLexema(), cantidad, token.getTipoToken()));
+            }
+        }
+         
+         return nueva;
+    }
+    
+    private int contarLexema(String lexema, ArrayList<Token> tokens){
+        int contador = 0;
+        for (Token token : tokens) {
+            if(!token.isYaFueContado() && lexema.equals(token.getLexema())){
+                token.setYaFueContado(true);
+                contador++;
+            }
+        }
+        return contador;
+    }
 
     public boolean hayErrores(ArrayList<Token> lista) {
         for (Token token : lista) {
-            if (token.getTipoToken().equals("error")) { // si es tipo error
+            if (token.getTipoToken().equals(TipoToken.ERROR)) { // si es tipo error
                 return true;
             }
         }
@@ -36,7 +61,7 @@ public class CreadorReportes {
     private ArrayList<Token> filtrarErrores(ArrayList<Token> lista) {
         ArrayList<Token> nueva = new ArrayList();
         for (Token token : lista) {
-            if (token.getTipoToken().equals("error")) {
+            if (token.getTipoToken().equals(TipoToken.ERROR)) {
                 nueva.add(token);
             }
         }
@@ -47,7 +72,7 @@ public class CreadorReportes {
     public ArrayList<Token> filtrarComentarios(ArrayList<Token> lista) {
         ArrayList<Token> nueva = new ArrayList();
         for (Token token : lista) {
-            if (!token.getTipoToken().equals("comentario linea") && !token.getTipoToken().equals("comentario bloque")) {
+            if (!token.getTipoToken().equals(TipoToken.COMENTARIO_LINEA) && !token.getTipoToken().equals(TipoToken.COMENTARIO_BLOQUE)) {
                 nueva.add(token);
             }
         }
@@ -65,7 +90,7 @@ public class CreadorReportes {
         Token tokenError = null;
         ArrayList<Token> nuevos = new ArrayList();
         for (Token token : lista) {
-            if (token.getTipoToken().equals("error")) {
+            if (token.getTipoToken().equals(TipoToken.ERROR)) {
                 if (tokenError == null) {
                     tokenError = token;
                 } else {
@@ -87,7 +112,7 @@ public class CreadorReportes {
         return nuevos;
     }
 
-    public ReporteGeneral crearReporteGeneral(ArrayList<Token> lista) {
+    public void crearReporteGeneral(ArrayList<Token> lista) {
         int cantidadErrores = 0;
         String porcentajeBueno = "";
         ArrayList<Token> listaErrores;
@@ -108,6 +133,5 @@ public class CreadorReportes {
             //porcentajeBueno = porcentaje+"%             ";
             porcentajeBueno = String.format("%.2f%%", porcentaje);
         }
-        return new ReporteGeneral(cantidadErrores,porcentajeBueno);
     }
 }

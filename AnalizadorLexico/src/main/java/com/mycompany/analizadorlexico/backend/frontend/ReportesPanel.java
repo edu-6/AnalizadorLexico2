@@ -5,7 +5,6 @@
 package com.mycompany.analizadorlexico.backend.frontend;
 
 import com.mycompany.analizadorlexico.backend.CreadorReportes;
-import com.mycompany.analizadorlexico.backend.ReporteGeneral;
 import com.mycompany.analizadorlexico.backend.automata.Token;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -57,9 +56,6 @@ public class ReportesPanel extends javax.swing.JPanel {
 
         this.revalidate();
         this.repaint();
-        
-        ReporteGeneral reporteGeneral = creadorReportes.crearReporteGeneral(lista);
-        JOptionPane.showMessageDialog(this, reporteGeneral.getReporte());
         
     }
 

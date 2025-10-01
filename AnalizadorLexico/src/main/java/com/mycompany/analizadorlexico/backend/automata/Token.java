@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.analizadorlexico.backend.automata;
-
-import com.mycompany.analizadorlexico.backend.automata.TipoToken;
 import java.awt.Color;
 
 /**
@@ -12,7 +10,7 @@ import java.awt.Color;
  * @author edu
  */
 public class Token {
-
+    private boolean yaFueContado = false;
     private TipoToken tipoToken;
     private String lexema;
     private int fila;
@@ -63,6 +61,14 @@ public class Token {
 
     public void setTipoToken(TipoToken tipoToken) {
         this.tipoToken = tipoToken;
+    }
+
+    public boolean isYaFueContado() {
+        return yaFueContado;
+    }
+
+    public void setYaFueContado(boolean yaFueContado) {
+        this.yaFueContado = yaFueContado;
     }
 
     public void setLexema(String lexema) {
