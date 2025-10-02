@@ -355,19 +355,21 @@ public class Automata {
                 + c);
     }
 
-    private void guardarToken(String lexema, int estado, int indiceActual,int fila, int columna) {
-        String mensaje = null;
-        if(estadoActual == ERROR){
-                mensaje =getTokenEsperado(estadoAnterior);
-        }else{
-                mensaje =getTokenEsperado(estadoActual);
-        }
-        logs+= "\n"+"\n"+ "REINICIANDO AUTOMATA Y GUARDANDO";
-        logs+= "\n"+ ("LEXEMA: " + lexema + " Fila: "+ fila +" Columna: "+ columna) + "\n";
-        logs+= "\n"+ "*********************************************************************";
+    private void guardarToken(String lexema, int estado, int indiceActual, int fila, int columna) {
+
         if (!lexema.equals("")) {
-            int indiceInicio = indiceActual - (lexema.length() -1);
-            Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna,indiceInicio,indiceActual,mensaje);
+            String mensaje = null;
+            if (estadoActual == ERROR) {
+                mensaje = getTokenEsperado(estadoAnterior);
+            } else {
+                mensaje = getTokenEsperado(estadoActual);
+            }
+            logs += "\n" + "\n" + "REINICIANDO AUTOMATA Y GUARDANDO";
+            logs += "\n" + ("LEXEMA: " + lexema + " Fila: " + fila + " Columna: " + columna) + "\n";
+            logs += "\n" + "*********************************************************************";
+
+            int indiceInicio = indiceActual - (lexema.length() - 1);
+            Token nuevoToken = new Token(getTipoToken(estado, lexema), lexema, fila, columna, indiceInicio, indiceActual, mensaje);
             tokens.add(nuevoToken);
             estadoActual = 0;
             estadoAnterior = 0;
