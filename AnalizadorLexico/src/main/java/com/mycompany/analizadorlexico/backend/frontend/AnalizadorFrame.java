@@ -66,6 +66,10 @@ public class AnalizadorFrame extends javax.swing.JFrame {
             }
         }
     }
+    
+    public EditorArea getEditorArea(){
+        return this.editorArea;
+    }
 
     public ArrayList<Token> analizar() {
         Automata automata = new Automata();

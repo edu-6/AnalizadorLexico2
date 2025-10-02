@@ -5,6 +5,7 @@
 package com.mycompany.analizadorlexico.backend.frontend;
 
 import com.mycompany.analizadorlexico.backend.BuscadorCadenas;
+import com.mycompany.analizadorlexico.backend.automata.Automata;
 import com.mycompany.analizadorlexico.backend.automata.Token;
 import com.mycompany.analizadorlexico.backend.exceptions.CampoVacioException;
 import java.util.ArrayList;
@@ -131,9 +132,10 @@ public class PanelOpciones extends javax.swing.JPanel {
     }//GEN-LAST:event_buscarBtnActionPerformed
 
     private void analizarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarBtnActionPerformed
-            this.analizador.analizar();
-            ArrayList<Token> tokens = this.analizador.analizar();
-            this.panelReportes.agregarTabla(tokens);
+        String texto = this.analizador.getEditorArea().getEditorTextPane().getText();
+        Automata automata = new Automata();
+            ArrayList<Token> tokens = automata.Analizar2(texto);
+            this.panelReportes.crearReportes(tokens, automata.getLogs());
     }//GEN-LAST:event_analizarBtnActionPerformed
 
     private void limpiarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBtnActionPerformed

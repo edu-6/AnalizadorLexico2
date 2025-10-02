@@ -32,6 +32,9 @@ public class Automata {
     private int [] estadosIniciales = new int [] {ERROR,1,4,5,6,7,8,11}; // se incluye error
     private int fila = 0;
     private int columna = 0;
+    
+    private String logs = "";
+    
     public Automata() {
         // ESTADO 0
         transiciones[0][DIGITO] = 1;
@@ -304,18 +307,18 @@ public class Automata {
             } else {
                 columna++;
             }
-            System.out.println("Fila y columna actual : "+ fila +" : "+ columna);
+            
             estadoAnterior = estadoActual; // guardar estado anterior
             estadoActual = transiciones[estadoActual][tipo];  // moverse con el estado
+            describirMovimiento(c);
             
             if(estadoAnterior == estadoInicial && esEstadoInicial(estadoActual)){ // cuando sea un estado de iniciao y el anterior sea 0
                 filaGuardada = fila;
                 columnaGuardada = columna;
-                System.out.println("Actualización de posicion: "+ "Fila:"+ filaGuardada + " Columna: "+ columnaGuardada);
             }
 
             if (estadoActual == ERROR) {
-                System.out.println("ERROR");
+                logs+="\n"+("ERROR");
                 lexema += c;// sumar caracter
                 guardarToken(lexema, estadoActual,i,filaGuardada,columnaGuardada);// GUARDAR EL ERROR
                 lexema = "";// REINICIAR EL LEXEMA
@@ -331,7 +334,7 @@ public class Automata {
                     lexema = "";
                 }
             } else {
-                describirMovimiento(c); // esta en estados medios
+                 // esta en estados medios
                 lexema += c;// sumar caracter
             }
 
@@ -347,7 +350,7 @@ public class Automata {
     }
 
     private void describirMovimiento(char c) {
-        System.out.println(
+        logs+= "\n"+(
                 "me movi del estado: " + estadoAnterior + " al estado: " + estadoActual + " con un: "
                 + c);
     }
@@ -359,8 +362,9 @@ public class Automata {
         }else{
                 mensaje =getTokenEsperado(estadoActual);
         }
-        
-        System.out.println("LEXEMA: " + lexema + "Fila: "+ fila +" Columna: "+ columna);
+        logs+= "\n"+"\n"+ "REINICIANDO AUTOMATA Y GUARDANDO";
+        logs+= "\n"+ ("LEXEMA: " + lexema + " Fila: "+ fila +" Columna: "+ columna) + "\n";
+        logs+= "\n"+ "*********************************************************************";
         if (!lexema.equals("")) {
             int indiceInicio = indiceActual - (lexema.length() -1);
             Token nuevoToken = new Token(getTipoToken(estado, lexema),lexema,fila,columna,indiceInicio,indiceActual,mensaje);
@@ -371,9 +375,9 @@ public class Automata {
     }
 
     public void ImprimirTokens() {
-        System.out.println("TOKENS ENCONTRADOS");
+        logs+= "\n"+"\n"+"TOKENS ENCONTRADOS";
         for (Token i : tokens) {
-            System.out.println("Lexema: " + i.getLexema() + " tipo Token: " + i.getTipoToken());
+            logs+= "\n"+"Lexema: " + i.getLexema() + " tipo Token: " + i.getTipoToken();
         }
     }
 
@@ -466,6 +470,12 @@ public class Automata {
         }
         return false;
     }
+
+    public String getLogs() {
+        return logs;
+    }
+    
+    
     
     
 
