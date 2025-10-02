@@ -1,5 +1,6 @@
 package com.mycompany.analizadorlexico.backend.automata;
 
+import com.mycompany.analizadorlexico.backend.depurador.Movimiento;
 import java.util.ArrayList;
 
 public class Automata {
@@ -33,8 +34,10 @@ public class Automata {
     private int fila = 0;
     private int columna = 0;
     
+    // otros
     private String logs = "";
-    
+    private ArrayList<Movimiento> movimientos = new ArrayList<>();
+    private boolean seGuardoToken = false;
     public Automata() {
         // ESTADO 0
         transiciones[0][DIGITO] = 1;
@@ -293,11 +296,14 @@ public class Automata {
 
     public ArrayList<Token> Analizar2(String texto) {
         tokens = new ArrayList<>();
+        movimientos = new ArrayList<>();
+        seGuardoToken = false;
         fila = 1;
         columna = 0;
         int filaGuardada= 1;
         int columnaGuardada = 0;
         String lexema = "";
+        movimientos.add(new Movimiento(seGuardoToken,estadoAnterior,'\n',estadoActual, lexema, null));
         for (int i = 0; i < texto.length(); i++) {
             char c = texto.charAt(i);
             int tipo = reconocedorChar.getTipoCaracter(c);
@@ -344,6 +350,18 @@ public class Automata {
                 guardarToken(lexema, estadoActual,i,filaGuardada, columnaGuardada);// SI ES FINAL GUARDAR
                 // si no es estado final guardar como error (quedo incompleto)
             }
+            
+            Token ultimoToken = null;
+            if(!tokens.isEmpty()){
+                ultimoToken = tokens.get(tokens.size()-1);
+            }
+            movimientos.add(new Movimiento(seGuardoToken,estadoAnterior,c,estadoActual, lexema, ultimoToken));
+            
+            if(seGuardoToken){ // reiniciar automata
+                estadoActual = 0;
+                estadoAnterior = 0;
+                seGuardoToken = false;
+            }
         }
         ImprimirTokens();
         return tokens;
@@ -371,8 +389,7 @@ public class Automata {
             int indiceInicio = indiceActual - (lexema.length() - 1);
             Token nuevoToken = new Token(getTipoToken(estado, lexema), lexema, fila, columna, indiceInicio, indiceActual, mensaje);
             tokens.add(nuevoToken);
-            estadoActual = 0;
-            estadoAnterior = 0;
+            seGuardoToken = true;
         }
     }
 
@@ -476,9 +493,8 @@ public class Automata {
     public String getLogs() {
         return logs;
     }
-    
-    
-    
-    
 
+    public ArrayList<Movimiento> getMovimientos() {
+        return movimientos;
+    }
 }
