@@ -92,8 +92,6 @@ public class EditorArea extends javax.swing.JPanel {
                                 editorTextPane.setToolTipText(sugerencia);
                                 ToolTipManager.sharedInstance().mouseMoved(e);
                             }
-                        }else{
-                            System.out.println("Lista es null");
                         }
                     }
                 } catch (Exception ex) {
