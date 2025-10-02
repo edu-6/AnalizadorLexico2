@@ -8,10 +8,16 @@ import com.mycompany.analizadorlexico.backend.AplicadorColores;
 import com.mycompany.analizadorlexico.backend.GestorArchivos;
 import com.mycompany.analizadorlexico.backend.LectorDeArchivos;
 import com.mycompany.analizadorlexico.backend.automata.Token;
+import com.mycompany.analizadorlexico.backend.sugerencias.AplicadorDeSugerencia;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -29,6 +35,8 @@ public class EditorArea extends javax.swing.JPanel {
     private LectorDeArchivos lector;
     private AplicadorColores aplicadorColores;
     private AnalizadorFrame analizadorFrame;
+    private  ArrayList<Token> lista; // guardar
+    private AplicadorDeSugerencia aplicadorSugerencia = new AplicadorDeSugerencia();
 
     /**
      * Creates new form EditorArea
@@ -51,8 +59,13 @@ public class EditorArea extends javax.swing.JPanel {
         this.setPreferredSize(new Dimension(500, 500));
     }
     
+    public AplicadorDeSugerencia getAplicadorSugerencia(){
+        return this.aplicadorSugerencia;
+    }
     
-    
+    public ArrayList<Token> getTokens(){
+        return this.lista;
+    }
 
     private void registrarCambioEnTexto() {
         this.gestor.setFileIsSaved(false);
@@ -60,7 +73,38 @@ public class EditorArea extends javax.swing.JPanel {
     }
 
     private void configurarEventos() {
+        
         Document doc = editorTextPane.getDocument();
+        EditorArea editorArea = this;
+        editorTextPane.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                try {
+                    int pos = editorTextPane.viewToModel2D(e.getPoint());
+                    if (pos >= 0) {
+                        Element root = editorTextPane.getDocument().getDefaultRootElement();
+                        int linea = root.getElementIndex(pos) + 1;
+                        int columna = pos - root.getElement(linea - 1).getStartOffset() + 1;
+                        
+                        if (lista != null) {
+                            String sugerencia = editorArea.getAplicadorSugerencia().buscarSugerencia(linea, columna - 1, lista);
+                            if (sugerencia != null) {
+                                editorTextPane.setToolTipText(sugerencia);
+                                ToolTipManager.sharedInstance().mouseMoved(e);
+                            }
+                        }else{
+                            System.out.println("Lista es null");
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
+
+
         editorTextPane.addCaretListener(e -> {
             int posicion = e.getDot();
             try {
@@ -107,6 +151,7 @@ public class EditorArea extends javax.swing.JPanel {
 
     private void pintar() {
         ArrayList<Token> lista = this.analizadorFrame.analizar();
+        this.lista = lista; // GUARDAR LA LISTA
         this.aplicadorColores.AplicarColor(editorTextPane, lista);
     }
 
